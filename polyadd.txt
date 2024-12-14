@@ -1,0 +1,131 @@
+class Polynomial{
+	private Node head;
+	private static class Node{
+		int coeff;
+		int exp;
+		Node prev;
+		Node next;
+		Node(int coeff, int exp){
+			this.coeff = coeff;
+			this.exp=exp;
+			this.prev=null;
+			this.next=null;
+		}
+	}
+	public void addTerm(int coeff, int exp){
+		Node newNode= new Node(coeff,exp);
+		if(head == null){
+			head=newNode;
+			return;
+		}
+		Node current=head;
+		Node prev=null;
+		while(current != null && current.exp > exp){
+			prev=current;
+			current=current.next;
+		}
+		if(current != null && current.exp == exp){
+			current.coeff+=coeff;
+			if(current.coeff == 0){
+				deleteNode(current);
+			}
+		}
+		else{
+			newNode.next=current;
+			newNode.prev=prev;
+			if(current != null){
+				current.prev = newNode;
+			}
+			if(prev != null){
+				prev.next=newNode;
+			}
+			else{
+				head=newNode;
+			}
+		}
+
+
+	}
+	private void deleteNode(Node node){
+			if(node.prev !=null){
+				node.prev.next=node.next;
+			}
+			else{
+				head=node.next;
+			}
+			if(node.next!=null){
+				node.next.prev=node.prev;
+			}
+		}
+	public static Polynomial addPolynomial(Polynomial poly1,Polynomial poly2){
+		Polynomial result = new Polynomial();
+		Node p1=poly1.head;
+		Node p2=poly2.head;
+		while(p1 != null && p2 != null){
+			if(p1.exp > p2.exp){
+				result.addTerm(p1.coeff, p1.exp);
+				p1=p1.next;
+			}
+			else if(p1.exp < p2.exp){
+				result.addTerm(p2.coeff,p2.exp);
+				p2=p2.next;
+			}
+			else{
+				result.addTerm(p1.coeff+p2.coeff, p1.exp);
+				p1=p1.next;
+				p2=p2.next;
+			}
+		}
+		while(p1!=null){
+			result.addTerm(p1.coeff,p1.exp);
+			p1=p1.next;
+		}	
+		while(p2!=null){
+			result.addTerm(p2.coeff,p2.exp);
+			p2=p2.next;
+		}
+		return result;
+	}
+	public void display(){
+		if(head==null){
+			System.out.println("0");
+			return;
+		}
+		Node current=head;
+		while(current!=null){
+			System.out.println(current.coeff + "x^" + current.exp);
+			if(current.next!=null){
+				System.out.println("+");
+			}
+			current=current.next;
+		}
+		System.out.println();
+	}
+
+
+}
+
+
+class Main{
+	public static void main(String[] args){
+		System.out.println("Name: Sahil Vyas");
+		System.out.println("Roll No: MCA - 61");
+		Polynomial poly1=new Polynomial();
+		poly1.addTerm(5,3);
+		poly1.addTerm(4,2);
+		poly1.addTerm(2,0);
+
+
+		Polynomial poly2=new Polynomial();
+		poly1.addTerm(3,3);
+		poly1.addTerm(1,1);
+		poly1.addTerm(6,0);
+		System.out.println("Polynomial 1: ");
+		poly1.display();
+		System.out.println("Polynomial 2: ");
+		poly2.display();
+		Polynomial result= Polynomial.addPolynomial(poly1,poly2);
+		System.out.println("Resultant Polynomial");
+		result.display();
+	}
+}

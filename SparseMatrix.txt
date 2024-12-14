@@ -1,0 +1,102 @@
+class SparseMatrix{
+	private Node head;
+	private static class Node{
+		int row;
+		int col;
+		int value;
+		Node next;
+		Node(int row,int col,int value){
+			this.row=row;
+			this.col=col;
+			this.value=value;
+			this.next=null;
+		}
+	}
+	public SparseMatrix(){
+		head=null;
+	}
+	public void insert(int row,int col,int value){
+		if(value==0) return;
+		Node newNode=new Node(row,col,value);
+		if(head==null){
+			head=newNode;
+		}
+		else{
+			Node current=head;
+			while(current.next !=null){
+				current=current.next;
+			}
+			current.next=newNode;
+		}
+		System.out.println("Inserted: ("+ row +","+ col+","+value+")");
+	}
+
+
+	public void display(){
+		if(head==null){
+			System.out.println("Sparse matrix is empty.");
+			return;
+		}
+		Node current = head;
+		System.out.println("Row\tColumn\tValue");
+		while(current !=null){
+			System.out.println(current.row+ "\t" + current.col +"\t"+current.value);
+			current=current.next;
+		}
+	}
+	public int getValue(int row,int col){
+		Node current=head;
+		while(current != null){
+			if(current.row == row && current.col ==col){
+				return current.value;
+			}
+			current=current.next;
+		}
+		return 0;
+	}
+	public void setValue(int row,int col,int value){
+		if(value == 0){
+			System.out.println("Setting a zero value is ignored in sparse matrix");
+			return;
+		}
+		Node current= head;
+		Node prev=null;
+		while(current!=null){
+			if(current.row==row && current.col==col){
+				current.value=value;
+				System.out.println("Updated value at (" + row + "," + col + "," + ") to " + value);
+				return;
+			}
+			prev=current;
+			current=current.next;
+		}
+
+
+		Node newNode=new Node(row,col,value);
+		if(prev==null){
+			head=newNode;
+		}
+		else{
+			prev.next=newNode;
+		}
+		System.out.println("Inserted new value at (" + row + "," + col + ") to " + value);
+	}
+}
+
+
+class Main{
+	public static void main(String[] args){
+		System.out.println("Name:Sahil Vyas");
+		System.out.println("Roll No: MCA - 61");
+		SparseMatrix sparseMatrix = new SparseMatrix();
+		sparseMatrix.insert(0,1,5);
+		sparseMatrix.insert(1,2,8);
+		sparseMatrix.insert(2,0,3);
+		sparseMatrix.display();
+		System.out.println("Value at (1,2): "+sparseMatrix.getValue(1,2));
+		System.out.println("Value at (0,0): "+sparseMatrix.getValue(0,0));
+		sparseMatrix.setValue(2,1,10);
+		sparseMatrix.display();
+	}
+
+}

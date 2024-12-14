@@ -1,0 +1,143 @@
+public class BinarySearchTree{
+	static class Node{
+		int data;
+		Node left,right;
+		public Node(int item){
+			data=item;
+			left=right=null;
+		}
+	}
+	static class BST{
+		Node root;
+		public BST(){
+			root=null;
+		}
+		public void insert(int data){
+			root=insertRec(root,data);
+		}
+		private Node insertRec(Node root,int data){
+			if(root==null){
+				root=new Node(data);
+				return root;
+			}
+			if(data < root.data){
+				root.left=insertRec(root.left,data);
+			}
+			else if(data>root.data){
+				root.right=insertRec(root.right,data);
+			}
+			return root;
+		}
+		public void inorder(){
+			inorderRec(root);
+		}
+		private void inorderRec(Node root){	
+			if(root!=null){
+				inorderRec(root.left);
+								System.out.println(root.data+" ");
+				inorderRec(root.right);
+			}
+		}
+		public boolean search(int key){
+			return searchRec(root,key);
+		}
+		private boolean searchRec(Node root,int key){
+			if(root==null || root.data==key)
+				return root !=null;
+			if(key>root.data)
+				return searchRec(root.right,key);
+			return searchRec(root.left,key);
+		}
+		public int findMin(){
+			Node current=root;
+			while(current.left!=null){
+				current=current.left;
+			}
+			return current.data;
+		}
+		public int findMax(){
+			Node current=root;
+			while(current.right != null){
+				current=current.right;
+			}
+			return current.data;
+		}
+		public void delete(int key){
+			root=deleteRec(root,key);
+		}
+		private Node deleteRec(Node root,int key){
+			if(root==null)
+				return root;
+			if(key<root.data){
+				root.left=deleteRec(root.left,key);
+			}
+			else if(key>root.data){
+				root.right=deleteRec(root.right,key);
+			}
+			else{
+				if(root.left==null)						return root.right;	
+				else if(root.right==null)
+					return root.left;
+				root.data=minValue(root.right);
+
+
+				root.right=deleteRec(root.right,root.data);
+			}
+			return root;
+		}
+		private int minValue(Node root){
+			int minValue=root.data;
+			while(root.left!=null){
+				minValue=root.left.data;
+				root=root.left;
+			}
+			return minValue;
+		}
+		public int height(){
+			return heightRec(root);
+		}
+		private int heightRec(Node root){
+			if(root==null)
+				return 0;
+			int leftHeight=heightRec(root.left);
+			int rightHeight=heightRec(root.right);
+
+
+			return Math.max(leftHeight,rightHeight)+1;
+		}
+	}
+	public static void main(String[] args){
+		System.out.println("Name: Sahil Vyas");
+		System.out.println("Roll no: MCA-61");
+		BST tree=new BST();
+		tree.insert(50);
+		tree.insert(30);
+		tree.insert(20);
+		tree.insert(40);
+		tree.insert(70);
+		tree.insert(60);
+		tree.insert(80);
+
+
+		System.out.println("Inorder traversal: ");
+		tree.inorder();
+		System.out.println();
+		System.out.println("Search for 40: "+(tree.search(40) ? "found": "Not found"));
+		System.out.println("Search for 100: "+(tree.search(100) ? "found": "Not found"));
+
+
+		System.out.println("Minimum value: "+tree.findMin());
+		System.out.println("Maximum value: "+tree.findMax());
+
+
+		System.out.println("Deleting node 20");
+		tree.delete(20);
+		tree.inorder();
+		System.out.println();
+
+
+		System.out.println("Height of the tree: "+tree.height());
+	}
+}
+
+

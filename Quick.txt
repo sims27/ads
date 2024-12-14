@@ -1,0 +1,51 @@
+Algorithm used for Quick Sort:
+Step 1 - Consider the first element of the list as pivot (i.e., Element at first position in the list). 
+Step 2 - Define two variables i and j. Set i and j to first and last elements of the list respectively. 
+Step 3 - Increment i until list[i] > pivot then stop. 
+Step 4 - Decrement j until list[j] < pivot then stop. 
+Step 5 - If i < j then exchange list[i] and list[j]. 
+Step 6 - Repeat steps 3,4 & 5 until i > j. 
+Step 7 - Exchange the pivot element with list[j] element.
+
+Programming Code in Java:
+import java.util.Arrays; 
+class Quicksort { 
+ static int partition(int array[], int low, int high) {   
+ int pivot = array[high]; 
+ int i = (low - 1); 
+ for (int j = low; j < high; j++) { 
+ if (array[j] <= pivot) { 
+ i++; 
+ int temp = array[i]; 
+ array[i] = array[j]; 
+ array[j] = temp; 
+     } 
+ } 
+ int temp = array[i + 1]; 
+ array[i + 1] = array[high]; 
+ array[high] = temp; 
+ return (i + 1); 
+ } 
+ static void quickSort(int array[], int low, int high) {  if (low < high) { 
+ int pi = partition(array, low, high); 
+  
+ quickSort(array, low, pi - 1); 
+ quickSort(array, pi + 1, high); 
+              } 
+      } 
+}
+class Main { 
+ public static void main(String args[]) { 
+System.out.println("Sahil Vyas"); 
+System.out.println("MCA-61"); 
+ int[] data = { 8, 7, 2, 1, 0, 9, 6 }; 
+ System.out.println("Unsorted Array"); 
+ System.out.println(Arrays.toString(data)); 
+ int size = data.length; 
+ Quicksort.quickSort(data, 0, size - 1); 
+ System.out.println("Sorted Array in Ascending Order: "); 
+ System.out.println(Arrays.toString(data)); 
+     } 
+}
+
+

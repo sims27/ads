@@ -1,0 +1,50 @@
+import java.util.Stack;
+class ParenthesisBalancer
+{
+	//Method to check if the parenthesis are balanced
+	public static Boolean areParanthesisBalanced(String expression)
+	{
+		Stack<Character> stack  = new Stack<> ();
+		//Iterate through each character in the expression
+		for(char ch: expression.toCharArray())
+		{
+			//Push opening brackets onto stack 
+			if(ch == '(' || ch=='{' || ch=='[')
+			{
+				stack.push(ch);
+			}
+			//Check for closing brackets 
+			else if (ch==')' || ch=='}' || ch==']')
+			{
+				//If stack is empty or top of stack doesn't match, return false
+ 
+			if(stack.isEmpty() || !isMatchingPair(stack.pop(),ch))
+			{
+				return false;
+			}
+		}
+	}
+	//If the stack is empty, all brackets were matched
+	return stack.isEmpty();
+	}
+	//Method to check if the opening and closing brackets match
+	private static Boolean isMatchingPair(char open, char close)
+	{
+		return(open=='(' && close ==')') ||
+		      (open=='{' && close =='}') ||
+		      (open=='[' && close ==']');
+	}
+	public static void main(String[] args)
+	{
+		System.out.println("Name: Sahil Vyas");
+		System.out.println("Roll No: MCA-61");
+		String expression="{[()]}"; //Example input
+		if(areParanthesisBalanced(expression))
+		{
+			System.out.println(" The parantheses are balanced.");
+		}
+		else
+		
+			System.out.println(" The parantheses are not balanced.");
+		}
+	}

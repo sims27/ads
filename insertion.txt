@@ -1,0 +1,52 @@
+Insertion Sort
+Algorithm of Insertion Sort
+Step 1: Repeat Steps 2 to 4 for i=2 to n
+Step 2:		Set temp=A[i] and k=i-1
+Step 3:		Repeat While temp<A[k] and k>0
+			Set A[k+1]=A[k]
+			Set k=k+1
+		[End loop]
+Step 4:		Set A[k+1] = temp
+	[End loop]
+Step 5: Exit
+Programming Code in Java:
+class InsertionSort{
+	public static void insertionSort(int[] arr){
+		for(int i=1;i<arr.length;i++){	
+			int key=arr[i];
+			int j=i-1;
+			while(j>=0 && arr[j]>key){
+				arr[j+1]=arr[j];
+				j--;
+			}
+			arr[j+1]=key;
+		}
+	}
+ 
+	public static void printArray(int[] arr){
+		for(int num:arr){
+			System.out.println(num + " ");
+		}
+ 
+		System.out.println();
+	}
+ 
+	public static void main(String[] args){
+		System.out.println("Sahil Vyas");
+		System.out.println("MCA-61");
+		int[] arr={64,34,25,12,22,11,90};
+		System.out.println("Original Array:");
+		printArray(arr);
+		insertionSort(arr);
+		System.out.println("Sorted Array:");
+		printArray(arr);
+	}
+}
+
+
+
+
+
+
+
+

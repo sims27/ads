@@ -1,0 +1,51 @@
+Algorithm used for Linear Search:
+Step 1: Repeat Steps 2 and 3 for i =1 to n
+Step 2: if s[i]=Data then
+Print:” Element is found at position” : i
+Exit
+[End if]
+Step 3: set i = i+1
+[End loop]
+Step 4: Print “Desired Element Data is not found in the array”
+Step 5: Exit
+
+
+
+
+import java.util.Scanner;
+public class linear{
+	public static int linearSearch(int[] arr,int target){
+		for(int i=0;i<arr.length;i++){
+			if(arr[i]==target){
+				return i;
+			}
+}
+			return -1;
+}
+		public static void main(String[] args){
+			Scanner s =new Scanner(System.in);
+                                            System.out.println("Name : Sahil Vyas");
+                                            System.out.println("Rollno: MCA-61");
+			System.out.println("Enter the number of elements in the array:");
+			int size=s.nextInt();
+			int[] array=new int[size];
+			System.out.println("Enter the elements of the array");
+			for(int i=0;i<size;i++){
+				array[i]=s.nextInt();
+			}
+			System.out.println("Enter the target value to search for:");
+			int target=s.nextInt();
+			int result=linearSearch(array,target);
+ 
+			if(result!=-1){
+				System.out.println("Element found at index: "+result);
+			}
+			else{
+				System.out.println("Element not found");
+			}
+			s.close();
+		}
+}
+
+
+

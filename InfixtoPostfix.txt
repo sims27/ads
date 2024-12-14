@@ -1,0 +1,59 @@
+Algorithm used for Infix to Postfix:
+Programming Code in Java:
+import java.util.Stack;
+class InfixToPostfix{
+	private static Boolean isOperator(char c){
+		return c =='+' || c =='-' || c =='*' || c =='/' || c =='^';
+	}
+	private static int precedence(char op){
+		switch(op){
+			case '+':
+			case '-':
+				return 1;
+			case '*':
+			case '/':
+				return 2;
+			case '^':
+				return 3;
+			default:
+				return 0;
+		}
+	}
+	public static String infixToPostfix(String infix){
+		StringBuilder postfix=new StringBuilder();
+		Stack<Character> stack=new Stack<>();
+		
+		for(char c:infix.toCharArray()){
+			if(Character.isLetterOrDigit(c)){
+				postfix.append(c);
+			}
+			else if(c == '('){
+				stack.push(c);
+			}
+			else if(c == ')'){
+				while(!stack.isEmpty() && stack.peek() != '('){
+					postfix.append(stack.pop());
+				}
+				stack.pop();
+			}
+			else if(isOperator(c)){
+				while(!stack.isEmpty() && precedence(stack.peek()) >= precedence(c)){
+					postfix.append(stack.pop());
+				}
+				stack.push(c);
+			}
+		}	
+		while(!stack.isEmpty()){
+			postfix.append(stack.pop());
+		}
+		return postfix.toString();
+	}
+	public static void main(String[] args){
+		System.out.println("Sahil Vyas");
+		System.out.println("MCA-61");
+		String infix= "a+b*(c*d-e)^(f+g*h)-i";
+		String postfix=infixToPostfix(infix);
+		System.out.println("Postfix Expression: " +postfix);
+	}
+ 
+}

@@ -1,0 +1,62 @@
+Algorithm used for Binary Search:
+Step 1: Set start=lb, end=ub
+Step 2: Repeat Steps 3 to 5 While Start&lt;=End
+Step 3: Set middle=Integer (start+end)/2
+Step 4: If s[middle]=data then
+Print “Element is found at position ”: middle
+Exit
+[End if ]
+Step 5: If s[middle]&lt;data then
+Set start=middle+1
+Else
+Set end=middle-1
+[End if]
+[End loop]
+Step 6: Print “Element does not exist in the array”
+Step 7: Exit
+Programming Code in Java:
+import java.util.*;
+class BinarySearch{
+	public static int binarySearch(int[] arr,int target){
+		int left=0;
+		int right=arr.length-1;
+		while(left<=right){
+			int mid=left+(right-left)/2;
+			if(arr[mid]==target){
+				return mid;
+			}
+			else if(arr[mid]<target){
+				left=mid+1;
+			}
+			else{
+				right=mid-1;
+			}
+		}
+		return -1;
+	}
+	public static void main(String[] args){
+          System.out.println("Name:Sahil Vyas");
+               System.out.println("Rollno: MCA-61");
+		Scanner s=new Scanner(System.in);
+		System.out.println("Enter the number of elements in the array: ");
+		int size=s.nextInt();
+		int[] array=new int[size];
+		System.out.println("Enter the elements of the sorted array: ");
+		for(int i=0;i<size;i++){
+			array[i]=s.nextInt();
+		}
+		System.out.println("Enter the target values to search for: ");
+		int target=s.nextInt();
+ 
+		int result=binarySearch(array,target);
+ 
+		if(result!=-1){
+System.out.println("Element found at index: "+result);
+		}
+		else{
+			System.out.println("Element not found in the array.");
+		}
+		s.close();
+	}
+}
+
